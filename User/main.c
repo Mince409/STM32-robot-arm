@@ -4,48 +4,48 @@
 #include "Serial.h"
 #include "PWM.h"
 
-//uint16_t Addr[9]; //Êı¾İÊı×é
-uint16_t Data; //Êı¾İ³ĞÔØ±äÁ¿
-uint8_t speed = 25; //ËÙ¶ÈÖµ
-int i=84,z=117,k=78,w=54; //²Ù×÷Öµ
-int Tempi=84,Tempz=117,Tempk=78,Tempw=54; //Í£Ö¹Öµ
+//uint16_t Addr[9]; //æ•°æ®æ•°ç»„
+uint16_t Data; //æ•°æ®æ‰¿è½½å˜é‡
+uint8_t speed = 25; //é€Ÿåº¦å€¼
+int i=84,z=117,k=78,w=54; //æ“ä½œå€¼
+int Tempi=84,Tempz=117,Tempk=78,Tempw=54; //åœæ­¢å€¼
 
 int main(void)
 {
-	//ZS¼ÓËÙ¼õÊıÖµ,FS¼ÓËÙÔöÊıÖµ
+	//ZSåŠ é€Ÿå‡æ•°å€¼,FSåŠ é€Ÿå¢æ•°å€¼
 //	int ZS=159,FS=199;
 	
-	//¹¦ÄÜ³õÊ¼»¯
-//	MyDMA_Init((uint32_t)Addr,(uint32_t)RxTime,8); //ÕâÊÇDMA³õÊ¼»¯ÅªÍê·¢ÏÖÃ»ÓÃ
-	OLED_Init(); //OLEDÏÔÊ¾³õÊ¼»¯
-	Serial_Init(); //´®¿ÚÍ¨ĞÅ³õÊ¼»¯
-	PWM_Init(); //PWM²¨Êä³ö³õÊ¼»¯
+	//åŠŸèƒ½åˆå§‹åŒ–
+//	MyDMA_Init((uint32_t)Addr,(uint32_t)RxTime,8); //è¿™æ˜¯DMAåˆå§‹åŒ–å¼„å®Œå‘ç°æ²¡ç”¨
+	OLED_Init(); //OLEDæ˜¾ç¤ºåˆå§‹åŒ–
+	Serial_Init(); //ä¸²å£é€šä¿¡åˆå§‹åŒ–
+	PWM_Init(); //PWMæ³¢è¾“å‡ºåˆå§‹åŒ–
 	
 	while(1)
 	{
-//		MyDMA_FlagStatus(); //DMAÊı¾İ×ªÔË
-		Data = RxTime[10]; //Êı¾İ»º´æ×ªÔË¸ø±äÁ¿  Êı×é´æÈ¡Êı¾İµÄÊı¾İ¸ñ¸ù¾İÊµ¼ÊÇé¿ö¸ü¸Ä
+//		MyDMA_FlagStatus(); //DMAæ•°æ®è½¬è¿
+		Data = RxTime[10]; //æ•°æ®ç¼“å­˜è½¬è¿ç»™å˜é‡  æ•°ç»„å­˜å–æ•°æ®çš„æ•°æ®æ ¼æ ¹æ®å®é™…æƒ…å†µæ›´æ”¹
 		
-		//½«´®¿ÚÊı¾İ´òÓ¡ÔÚOLEDÆÁÄ»ÉÏ
+		//å°†ä¸²å£æ•°æ®æ‰“å°åœ¨OLEDå±å¹•ä¸Š
 //		if(Serial_GetAddr() == 1)
 //		{
 //			OLED_ShowHexNum(1,1,Data,1);
 //		}	
 
-	//Ò»ÏÂÈ«ÊÇÀ¶ÑÀ·¢ËÍµÄ×Ö½ÚÊıÅĞ¶ÏifÀïÃæµÄÅĞ¶ÁÊı¸ù¾İÊµ¼ÊÇé¿ö¸ü¸Ä
+	//ä»¥ä¸‹å…¨æ˜¯è“ç‰™å‘é€çš„å­—èŠ‚æ•°åˆ¤æ–­ifé‡Œé¢çš„åˆ¤è¯»æ•°æ ¹æ®å®é™…æƒ…å†µæ›´æ”¹
 
-		//Í£Ö¹ËùÓĞ¶¯×÷
+		//åœæ­¢æ‰€æœ‰åŠ¨ä½œ
 		if(Data == 0){
-			//×ªÖá
+			//è½¬è½´
 			PWM_A8(Tempk);
-			//´ó±Û
+			//å¤§è‡‚
 			PWM_A9(Tempi);
-			//Ğ¡±Û
+			//å°è‡‚
 			PWM_A10(Tempz);
-			//×¦×Ó
+			//çˆªå­
 			PWM_A11(Tempw);
 		}
-		//×ªÖá
+		//è½¬è½´
 		if(Data == 9){
 			if(k<=180){
 				k+=1;
@@ -67,7 +67,7 @@ int main(void)
 			
 			//PWM_A8(FS);
 		}
-		//´ó±Û
+		//å¤§è‡‚
 		else if(Data == 3){
 			if(i<=180){
 				i+=1;
@@ -87,7 +87,7 @@ int main(void)
 			}
 			else continue;
 		}
-		//Ğ¡±Û
+		//å°è‡‚
 		else if(Data == 5){
 			if(z<=180){
 				z+=1;
@@ -107,7 +107,7 @@ int main(void)
 			}
 			else continue;
 		}
-		//×¦×Ó
+		//çˆªå­
 		else if(Data == 7){
 			if(w>=-16){
 				w-=1;
